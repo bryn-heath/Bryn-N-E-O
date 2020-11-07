@@ -9,7 +9,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
@@ -35,15 +35,13 @@ const useStyles = makeStyles({
   },
 });
 
-export default function Signup() {
-  const passwordConfirmRef = useRef();
+export default function Login() {
   const passwordRef = useRef();
   const emailRef = useRef();
   const classes = useStyles();
-  const { signup, currentUser } = useAuth();
+  const { login, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [loadingState, setLoadingState] = useState(false);
-  const [getUserDevice, setUserDevice] = useState(false); //true is mob - false if web
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
 
@@ -54,41 +52,18 @@ export default function Signup() {
     setOpen(false);
   };
 
-  function detectMob() {
-    const toMatch = [
-      /Android/i,
-      /webOS/i,
-      /iPhone/i,
-      /iPad/i,
-      /iPod/i,
-      /BlackBerry/i,
-      /Windows Phone/i,
-    ];
+  // useEffect(() => {
 
-    return toMatch.some((toMatchItem) => {
-      return navigator.userAgent.match(toMatchItem);
-    });
-  }
-
-  useEffect(() => {
-    setUserDevice(detectMob());
-  }, []);
+  // }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    if (passwordRef.current.value !== passwordConfirmRef.current.value) {
-      setOpen(true);
-      return setError('Passwords do not match');
-    }
+
     try {
       setError('');
       setLoadingState(true);
-      await signup(emailRef.current.value, passwordRef.current.value);
-      setOpen(true);
-      setError('Account created');
-      setTimeout(function () {
-        history.push('/login');
-      }, 1000);
+      await login(emailRef.current.value, passwordRef.current.value);
+      history.push('/');
     } catch (e) {
       setOpen(true);
       setError(e.message);
@@ -101,7 +76,7 @@ export default function Signup() {
       <Card className={classes.root}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
-            SIGN UP
+            LOG IN
           </Typography>
         </CardContent>
         {console.log(JSON.stringify(currentUser))}
@@ -125,16 +100,6 @@ export default function Signup() {
               type="password"
             />
           </div>
-
-          <div className={classes.spacing}>
-            <TextField
-              style={{ width: 200 }}
-              inputRef={passwordConfirmRef}
-              id="passwordConfInput"
-              label="Password Confirmation"
-              type="password"
-            />
-          </div>
         </form>
 
         <div className={classes.spacing}>
@@ -145,13 +110,12 @@ export default function Signup() {
               size="small"
               variant="outlined"
             >
-              Sign up
+              Log in
             </Button>
           </CardActions>
         </div>
-
         <Typography className={classes.title} color="textSecondary">
-          Already have an account? <Link to="/login">Log in</Link>
+          Need an account? <Link to="/signup">Sign Up</Link>
         </Typography>
       </Card>
       {error && (
@@ -161,13 +125,9 @@ export default function Signup() {
           autoHideDuration={6000}
           onClose={handleClose}
         >
-          {error === 'Account created' ? (
-            <Alert severity="success">{error}</Alert>
-          ) : (
-            <Alert onClose={handleClose} severity="error">
-              {error}
-            </Alert>
-          )}
+          <Alert onClose={handleClose} severity="error">
+            {error}
+          </Alert>
         </Snackbar>
       )}
     </>
