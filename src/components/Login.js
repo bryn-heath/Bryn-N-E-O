@@ -14,6 +14,13 @@ import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    transform: 'translate(0, 100%)',
+  },
   root: {
     width: window.innerWidth < 550 ? '60%' : '40%',
     height: '60%',
@@ -42,7 +49,7 @@ export default function Login() {
   const { login, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [loadingState, setLoadingState] = useState(false);
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const history = useHistory();
 
   const handleClose = (event, reason) => {
@@ -72,14 +79,13 @@ export default function Login() {
   }
 
   return (
-    <>
+    <div className={classes.container}>
       <Card className={classes.root}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
             LOG IN
           </Typography>
         </CardContent>
-        {console.log(JSON.stringify(currentUser))}
         <form className={classes.root}>
           <div className={classes.spacing}>
             <TextField
@@ -130,6 +136,6 @@ export default function Login() {
           </Alert>
         </Snackbar>
       )}
-    </>
+    </div>
   );
 }

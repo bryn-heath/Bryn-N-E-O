@@ -9,11 +9,18 @@ import {
   Typography,
 } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
 const useStyles = makeStyles({
+  container: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    alignItems: 'center',
+    transform: 'translate(0, 80%)',
+  },
   root: {
     width: window.innerWidth < 550 ? '60%' : '40%',
     height: '60%',
@@ -43,7 +50,6 @@ export default function Signup() {
   const { signup, currentUser } = useAuth();
   const [error, setError] = useState('');
   const [loadingState, setLoadingState] = useState(false);
-  const [getUserDevice, setUserDevice] = useState(false); //true is mob - false if web
   const [open, setOpen] = React.useState(false);
   const history = useHistory();
 
@@ -53,26 +59,6 @@ export default function Signup() {
     }
     setOpen(false);
   };
-
-  function detectMob() {
-    const toMatch = [
-      /Android/i,
-      /webOS/i,
-      /iPhone/i,
-      /iPad/i,
-      /iPod/i,
-      /BlackBerry/i,
-      /Windows Phone/i,
-    ];
-
-    return toMatch.some((toMatchItem) => {
-      return navigator.userAgent.match(toMatchItem);
-    });
-  }
-
-  useEffect(() => {
-    setUserDevice(detectMob());
-  }, []);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -97,14 +83,13 @@ export default function Signup() {
   }
 
   return (
-    <>
+    <div className={classes.container}>
       <Card className={classes.root}>
         <CardContent>
           <Typography className={classes.title} color="textSecondary">
             SIGN UP
           </Typography>
         </CardContent>
-        {console.log(JSON.stringify(currentUser))}
         <form className={classes.root}>
           <div className={classes.spacing}>
             <TextField
@@ -170,6 +155,6 @@ export default function Signup() {
           )}
         </Snackbar>
       )}
-    </>
+    </div>
   );
 }
