@@ -10,13 +10,8 @@ export default function UserFavsComponent({ getFavArr }) {
   const [useArray, setArray] = useState([]);
   let favArr = [];
 
-  // console.log('1111111', getFavArr);
-  //  console.log('333333333', useArray);
-  // console.log('44444444', useFlag);
-
   useEffect(() => {
     getFavArr.map((ea) => callApiMapIds(ea));
-    // setLoadingFlag(true);
   }, []);
 
   const callApiMapIds = async (ea) => {
@@ -30,15 +25,12 @@ export default function UserFavsComponent({ getFavArr }) {
       max: singleRec.estimated_diameter.meters.estimated_diameter_max,
       min: singleRec.estimated_diameter.meters.estimated_diameter_min,
     };
-    console.log('55555555', favArr.length);
 
     favArr.push(dataNeeded);
     if (favArr.length === getFavArr.length) {
       setArray(favArr);
     }
   };
-
-  //
 
   return (
     <div

@@ -47,7 +47,7 @@ export default function Signup() {
   const passwordRef = useRef();
   const emailRef = useRef();
   const classes = useStyles();
-  const { signup, currentUser } = useAuth();
+  const { signup } = useAuth();
   const [error, setError] = useState('');
   const [loadingState, setLoadingState] = useState(false);
   const [open, setOpen] = React.useState(false);

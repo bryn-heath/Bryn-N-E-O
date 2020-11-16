@@ -4,11 +4,10 @@ import FavComponent from './FavComponent';
 import { db } from './../firebase';
 import { useAuth } from '../context/AuthContext';
 
-export default function AsteroidList() {
+export const AsteroidList = React.memo(() => {
   const [asteroidList, setAsteroidList] = useState(null);
-  const { currentUser } = useAuth();
 
-  const callListNeo = async (date) => {
+  const callListNeo = async () => {
     try {
       return await fetch(
         `https://api.nasa.gov/neo/rest/v1/neo/browse?&api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`
@@ -18,23 +17,8 @@ export default function AsteroidList() {
     }
   };
 
-  // const callAllDataNeo = async (date) => {
-  //   try {
-  //     return await fetch(
-  //       `https://api.nasa.gov/neo/rest/v1/neo/browse?api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`
-  //     ).then((res) => res.json());
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
   useEffect(() => {
-    const d = new Date();
-    const ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
-    const mo = new Intl.DateTimeFormat('en', { month: 'numeric' }).format(d);
-    const da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
-    const fullDate = `${ye}-${mo}-${da}`;
-    callListNeo(fullDate).then((data) =>
+    callListNeo().then((data) =>
       setAsteroidList(
         data.near_earth_objects.sort(() => 0.5 - Math.random()).slice(0, -10)
       )
@@ -94,6 +78,6 @@ export default function AsteroidList() {
         : null}
     </div>
   );
-}
+});
 
 // `https://api.nasa.gov/neo/rest/v1/feed?limit=10&start_date=${date}&api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`

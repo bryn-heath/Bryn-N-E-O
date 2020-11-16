@@ -1,7 +1,7 @@
 import { makeStyles, Divider } from '@material-ui/core';
 import React, { useEffect, useState } from 'react';
 import MenuDrop from './MenuDrop';
-import AsteroidList from './AsteroidList';
+import { AsteroidList } from './AsteroidList';
 import { useAuth } from '../context/AuthContext';
 import { useHistory } from 'react-router-dom';
 import UserFavsComponent from './UserFavsComponent';

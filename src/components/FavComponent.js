@@ -65,7 +65,7 @@ export default function FavComponent({ rockID }) {
   return (
     <>
       {favBool ? (
-        <FavoriteIcon onClick={setCollectionFav} />
+        <FavoriteIcon htmlColor="#ff00f8" onClick={setCollectionFav} />
       ) : (
         <FavoriteBorderIcon onClick={setCollectionFav} />
       )}

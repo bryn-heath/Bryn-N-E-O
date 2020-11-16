@@ -14,3 +14,6 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 ## Extra - to do next
 
 add a debounce on the search component
+add assets folder
+add
+helpers.js
