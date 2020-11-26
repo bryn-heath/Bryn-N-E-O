@@ -16,12 +16,12 @@ export default function SearchComponent() {
 
   //   useEffect(() => {
 
-  //   });
-
+  //   });wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe
+  console.log('TESTTTTTTTTTTTTTTTTTTT', process.env);
   const callSearchById = async (id) => {
     try {
       const searchRes = await fetch(
-        `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`
+        `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=${process.env.REACT_APP_NASA_API}`
       ).then((res) => res.json());
       setRecord(searchRes);
     } catch (e) {

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Divider } from '@material-ui/core';
 import FavComponent from './FavComponent';
-import { db } from './../firebase';
-import { useAuth } from '../context/AuthContext';
+// import { db } from './../firebase';
+// import { useAuth } from '../context/AuthContext';
 
 export const AsteroidList = React.memo(() => {
   const [asteroidList, setAsteroidList] = useState(null);
@@ -10,7 +10,7 @@ export const AsteroidList = React.memo(() => {
   const callListNeo = async () => {
     try {
       return await fetch(
-        `https://api.nasa.gov/neo/rest/v1/neo/browse?&api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`
+        `https://api.nasa.gov/neo/rest/v1/neo/browse?&api_key=${process.env.REACT_APP_NASA_API}`
       ).then((res) => res.json());
     } catch (e) {
       console.log(e);

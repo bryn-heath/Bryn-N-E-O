@@ -59,10 +59,6 @@ export default function Login() {
     setOpen(false);
   };
 
-  // useEffect(() => {
-
-  // }, []);
-
   async function handleSubmit(e) {
     e.preventDefault();
 

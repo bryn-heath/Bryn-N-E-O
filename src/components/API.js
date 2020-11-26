@@ -1,7 +1,7 @@
 export const singleCallSearchById = async (id) => {
   try {
     const resp = await fetch(
-      `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`
+      `https://api.nasa.gov/neo/rest/v1/neo/${id}?api_key=${process.env.REACT_APP_NASA_API}`
     ).then((res) => res.json());
     return resp;
   } catch (e) {
@@ -12,7 +12,7 @@ export const singleCallSearchById = async (id) => {
 export const fetchNeoFeedDateSearch = async (startDate, endDate) => {
   try {
     const resp = await fetch(
-      `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe`
+      `https://api.nasa.gov/neo/rest/v1/feed?start_date=${startDate}&end_date=${endDate}&api_key=${process.env.REACT_APP_NASA_API}`
     ).then((res) => res.json());
     return await formatTenCloseDates(resp.near_earth_objects, startDate);
   } catch (e) {

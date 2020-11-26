@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Divider } from '@material-ui/core';
-import { useAuth } from '../context/AuthContext';
 import FavComponent from './FavComponent';
 import { singleCallSearchById } from './API';
 
 export default function UserFavsComponent({ getFavArr }) {
-  const [asteroidList, setAsteroidList] = useState(null);
-  const [useFlag, setLoadingFlag] = useState(true);
   const [useArray, setArray] = useState([]);
   let favArr = [];
 
   useEffect(() => {
-    getFavArr.map((ea) => callApiMapIds(ea));
+    if (getFavArr != undefined) {
+      getFavArr.map((ea) => callApiMapIds(ea));
+    }
+    return;
   }, []);
 
   const callApiMapIds = async (ea) => {
