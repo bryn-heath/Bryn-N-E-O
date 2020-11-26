@@ -40,19 +40,20 @@ export default function Dashboard() {
 
   useEffect(() => {
     ImgUrlFetch().then((data) => setImgUrl(data));
-    fetchFirebaseFavList();
-  }, []);
 
-  const fetchFirebaseFavList = async () => {
-    const favRef = await db.collection('fav').doc(currentUser.uid);
-    const getAllDoc = await favRef.get();
-    if (!getAllDoc.exists) {
-      console.log('No such document!');
-    } else {
-      const rockResults = await getAllDoc.data()['rocks'];
-      setFavArr(rockResults);
-    }
-  };
+    const fetchFirebaseFavList = async () => {
+      const favRef = db.collection('fav').doc(currentUser.uid);
+      const getAllDoc = await favRef.get();
+      if (!getAllDoc.exists) {
+        console.log('No such document!');
+      } else {
+        const rockResults = await getAllDoc.data()['rocks'];
+        setFavArr(rockResults);
+      }
+    };
+
+    fetchFirebaseFavList();
+  }, [currentUser.uid]);
 
   return (
     <div className={classes.container}>

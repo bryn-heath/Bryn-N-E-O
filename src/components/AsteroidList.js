@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Divider } from '@material-ui/core';
 import FavComponent from './FavComponent';
-import { db } from './../firebase';
-import { useAuth } from '../context/AuthContext';
 
 export const AsteroidList = React.memo(() => {
   const [asteroidList, setAsteroidList] = useState(null);

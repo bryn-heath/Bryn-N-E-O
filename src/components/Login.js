@@ -46,7 +46,7 @@ export default function Login() {
   const passwordRef = useRef();
   const emailRef = useRef();
   const classes = useStyles();
-  const { login, currentUser } = useAuth();
+  const { login } = useAuth();
   const [error, setError] = useState('');
   const [loadingState, setLoadingState] = useState(false);
   const [open, setOpen] = useState(false);

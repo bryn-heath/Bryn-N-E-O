@@ -5,32 +5,32 @@ import { singleCallSearchById } from './API';
 
 export default function UserFavsComponent({ getFavArr }) {
   const [useArray, setArray] = useState([]);
-  let favArr = [];
 
   useEffect(() => {
-    if (getFavArr != undefined) {
+    let favArr = [];
+    const callApiMapIds = async (ea) => {
+      let singleRec = await singleCallSearchById(ea);
+
+      let dataNeeded = {
+        id: singleRec.id,
+        name: singleRec.name,
+        is_potentially_hazardous_asteroid:
+          singleRec.is_potentially_hazardous_asteroid,
+        max: singleRec.estimated_diameter.meters.estimated_diameter_max,
+        min: singleRec.estimated_diameter.meters.estimated_diameter_min,
+      };
+
+      favArr.push(dataNeeded);
+      if (favArr.length === getFavArr.length) {
+        setArray(favArr);
+      }
+    };
+
+    if (getFavArr !== undefined) {
       getFavArr.map((ea) => callApiMapIds(ea));
     }
     return;
-  }, []);
-
-  const callApiMapIds = async (ea) => {
-    let singleRec = await singleCallSearchById(ea);
-
-    let dataNeeded = {
-      id: singleRec.id,
-      name: singleRec.name,
-      is_potentially_hazardous_asteroid:
-        singleRec.is_potentially_hazardous_asteroid,
-      max: singleRec.estimated_diameter.meters.estimated_diameter_max,
-      min: singleRec.estimated_diameter.meters.estimated_diameter_min,
-    };
-
-    favArr.push(dataNeeded);
-    if (favArr.length === getFavArr.length) {
-      setArray(favArr);
-    }
-  };
+  }, [getFavArr]);
 
   return (
     <div

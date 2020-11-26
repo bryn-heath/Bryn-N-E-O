@@ -81,7 +81,11 @@ export default function SearchComponent() {
 
             <div className={classes.spacing}>
               {getRecord !== null ? (
-                <a href={getRecord.nasa_jpl_url} target="_blank">
+                <a
+                  href={getRecord.nasa_jpl_url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   Further information (nasa.gov)
                 </a>
               ) : null}
