@@ -12,6 +12,7 @@ export default function FavComponent({ rockID }) {
   const [getFavArr, setFavArr] = useState();
   const [useFlag, setFlag] = useState(false);
   const [favBool, setFavBool] = useState(false);
+  const [getCheckCollectionExists, setCheckCollectionExists] = useState();
 
   useEffect(() => {
     checkIfFavorite();
@@ -26,6 +27,7 @@ export default function FavComponent({ rockID }) {
     const getAllDoc = await favRef.get();
     if (!getAllDoc.exists) {
       console.log('No such document!');
+      setCheckCollectionExists(false);
     } else {
       const rockResults = await getAllDoc.data()['rocks'];
       setFavArr(rockResults);
@@ -44,6 +46,13 @@ export default function FavComponent({ rockID }) {
   };
 
   const setCollectionFav = async () => {
+    if (getCheckCollectionExists === false) {
+      const res = await db
+        .collection('fav')
+        .doc(currentUser.uid)
+        .set({ rocks: firebase.firestore.FieldValue.arrayUnion(rockID) });
+      setCheckCollectionExists(true);
+    }
     if (favBool === false) {
       const favRes = await db
         .collection('fav')
@@ -61,6 +70,7 @@ export default function FavComponent({ rockID }) {
         });
       setFavBool(false);
     }
+    return;
   };
   return (
     <>

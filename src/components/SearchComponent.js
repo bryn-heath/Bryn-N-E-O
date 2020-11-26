@@ -14,10 +14,6 @@ export default function SearchComponent() {
   const searchRef = useRef();
   const classes = useStyles();
 
-  //   useEffect(() => {
-
-  //   });wq6CVTNwrDLBATNEc8oDjfcq4baCXxIlJoLPNJGe
-  console.log('TESTTTTTTTTTTTTTTTTTTT', process.env);
   const callSearchById = async (id) => {
     try {
       const searchRes = await fetch(
